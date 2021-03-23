@@ -1,0 +1,29 @@
+- name: Install Unzip Package
+  apt:
+    pkg:
+    - unzip
+    update_cache: true
+
+
+- name: Curl AWS-CLI Repository
+  shell: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  state: present
+ 
+
+- name: Unzip AWS-CLI Repository 
+  shell: unzip awscliv2.zip
+  state: present
+
+
+- name: Install AWS-CLI
+  shell: ./aws/install 
+ 
+
+- name: Check AWS-CLI Install Version
+  shell: /usr/local/bin/aws --version 
+  register: version
+
+
+- name: Prin Version
+  debug:
+    var: version.stdout
